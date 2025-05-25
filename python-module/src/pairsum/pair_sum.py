@@ -31,8 +31,6 @@ def pair_sum_sorted_brute_force(nums: List[int],
                 return [i, j]
     return []
 
-"""Something"""
-
 def pair_sum_sorted(nums: List[int],
                     tar: int) -> List[int]:
     """Pair sum with 2 pointers clever algo with O(n) time complexity"""
