@@ -1,0 +1,40 @@
+# Default ignored files
+/shelf/
+/.idea/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Environment-dependent path to Maven home directory
+/mavenHomeManager.xml
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+# Ignore IntelliJ IDEA project files
+.idea/
+
+# Ignore IDE-specific project files
+*.iml
+
+# Ignore workspace and history files
+.svn/
+.idea/.idea/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/liquibase.xml
+.idea/modules.xml
+.idea/.name
+.idea/misc.xml
+.idea/vcs.xml
+.idea/.idea_configs/
+.idea/gradle.xml
+.idea/caches/
+.idea/libraries/
+.idea/dataSources/
+.idea/dataSources.xml
+.idea/dataSources.local.xml
+.idea/datasource-focus/
+.idea/sonarlint/
+.idea/lint/
+.idea/folders.xml
+.idea/generation/
+.idea/.idea
