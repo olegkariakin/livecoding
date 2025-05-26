@@ -1,5 +1,6 @@
-from utils import util_functions as uf
 from typing import List
+
+from utils import util_functions as uf
 
 # Read array from console
 array = uf.read_int_array()
@@ -15,9 +16,10 @@ print("Sorted ascending: ", asc_array)
 desc_array = uf.sort_array_descending(array)
 print("Sorted descending: ", desc_array)
 
-#Read a single integer
+# Read a single integer
 target = uf.read_int()
 print("Target is: ", target)
+
 
 def pair_sum_sorted_brute_force(nums: List[int],
                                 tar: int) -> List[int]:
@@ -28,6 +30,7 @@ def pair_sum_sorted_brute_force(nums: List[int],
             if nums[i] + nums[j] == tar:
                 return [i, j]
     return []
+
 
 def pair_sum_sorted(nums: List[int],
                     tar: int) -> List[int]:
@@ -42,6 +45,7 @@ def pair_sum_sorted(nums: List[int],
         else:
             return [left, right]
     return []
+
 
 print("Result is with brute force approach: ", pair_sum_sorted_brute_force(asc_array, target))
 print("Result is with clever 2 pointer approach: ", pair_sum_sorted(asc_array, target))
