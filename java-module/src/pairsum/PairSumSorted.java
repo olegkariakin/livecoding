@@ -12,20 +12,22 @@ public class PairSumSorted {
         printArrayToConsole(array);
         System.out.println("Sorted array");
         printArrayToConsole(sortArrayAscending(array));
-        //TODO ends
-        int target = 2;
+        System.out.println("Print a target of pair sum");
+        int target = readIntegerFromConsole();
         System.out.println("Result: ");
+        //TODO ends
         printArrayToConsole(pairSumSorted(array, target));
     }
 
     //TODO move to readme
+
     /**
      * Find a first pair of elements withing sorted array which sum
      * equals to the target, return empty array otherwise
      * For example
      * [-5, -2, 3, 4, 6] target = 7
      * Result: [2, 3]
-     * */
+     */
     public static int[] pairSumSorted(int[] arr, int target) {
         int[] emptyArray = {};
         if (arr == null || arr.length < 2) {

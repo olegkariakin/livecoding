@@ -30,6 +30,16 @@ public class ArrayUtils {
                 .toArray();
     }
 
+    public static int readIntegerFromConsole() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Print an integer: ");
+        int input = 0;
+        if (sc.hasNextInt()) {
+            input = sc.nextInt();
+        }
+        return input;
+    }
+
     public static List<Integer> readListFromConsole() {
         Scanner sc = new Scanner(System.in);
         var integerList = new ArrayList<Integer>();
