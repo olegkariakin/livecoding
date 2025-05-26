@@ -2,13 +2,16 @@ def print_array(arr):
     """Print array to console."""
     print("Array: ", arr)
 
+
 def sort_array_ascending(arr):
     """Return a sorted copy of array in ascending order."""
     return sorted(arr)
 
+
 def sort_array_descending(arr):
     """Return a sorted copy of array in descending order."""
     return sorted(arr, reverse=True)
+
 
 def read_int():
     """Read a single integer from console."""
@@ -17,6 +20,7 @@ def read_int():
             return int(input("Enter an integer: "))
         except ValueError:
             print("Invalid input. Please enter an integer")
+
 
 def read_int_array(stop_value=-100500):
     """Read integers from console until stop_value is encountered, return as list."""
@@ -31,3 +35,12 @@ def read_int_array(stop_value=-100500):
         except ValueError:
             print("Invalid input. Please enter an integer.")
     return arr
+
+
+def read_string_from_console():
+    while True:
+        s = input("Enter a string: ")
+        if s.strip():
+            return s
+        else:
+            print("Input cannot be empty. Please try again")
