@@ -25,4 +25,14 @@ def pair_sum_unsorted_two_pass(nums: List[int],
     return []
 
 
+def pair_sum_unsorted(nums: List[int], target: int) -> List[int]:
+    hashmap = {}
+    for i, x in enumerate(nums):
+        if target - x in hashmap:
+            return [hashmap[target - x], i]
+        hashmap[x] = i
+    return []
+
+
 print("Two pass approach: ", pair_sum_unsorted_two_pass(array, target))
+print("One pass approach: ", pair_sum_unsorted(array, target))
