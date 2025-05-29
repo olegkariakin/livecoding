@@ -21,7 +21,10 @@ def largest_container_brute_force(heights_array: List[int]) -> int:
 
     return max_water
 
+
 print("\n")
+
+
 def largest_container(heights_array: List[int]) -> int:
     left, right = 0, len(heights_array) - 1
     max_water = 0
