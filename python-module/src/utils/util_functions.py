@@ -1,3 +1,8 @@
+from typing import List
+
+from linkedlists.ListNode import ListNode
+
+
 def print_array(arr):
     """Print array to console."""
     print("Array: ", arr)
@@ -44,3 +49,26 @@ def read_string_from_console():
             return s
         else:
             print("Input cannot be empty. Please try again")
+
+
+def list_to_linked_list(items: List[int]) -> ListNode | None:
+    head = None
+    current = None
+    for num in items:
+        node = ListNode(num)
+        if not head:
+            head = node
+            current = head
+        else:
+            current.next = node
+            current = current.next
+    return head
+
+
+def print_linked_list_to_console(head: ListNode | None) -> None:
+    current = head
+    nodes = []
+    while current:
+        nodes.append(str(current.val))
+        current = current.next
+    print(" -> ".join(nodes))
