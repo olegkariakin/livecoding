@@ -15,8 +15,10 @@ public class PairSumUnsorted {
         System.out.println("Enter target: ");
         int target = readIntegerFromConsole();
         System.out.println(String.format("Target is: %s", target));
-        System.out.println("Complementary pair: " +
+        System.out.println("Complementary pair two pass: " +
                 Arrays.toString(pairSumUnsortedTwoPass(array, target)));
+        System.out.println("Complementary pair: " +
+                Arrays.toString(pairSumUnsorted(array, target)));
     }
 
     private static int[] pairSumUnsortedTwoPass(int[] array, int target) {
@@ -30,9 +32,21 @@ public class PairSumUnsorted {
             int num = array[i];
             int complement = target - num;
             if (numMap.containsKey(complement) && numMap.get(complement) != i) {
-                return new int []{i, numMap.get(complement)};
+                return new int[]{i, numMap.get(complement)};
             }
         }
-        return new int []{};
+        return new int[]{};
+    }
+
+    private static int[] pairSumUnsorted(int[] array, int target) {
+        var numMap = new HashMap<Integer, Integer>();
+        for (int i = 0; i < array.length; i++) {
+            int x = array[i];
+            if (numMap.containsKey(target - x)) {
+                return new int[]{numMap.get(target - x), i};
+            }
+            numMap.put(x, i);
+        }
+        return new int[]{};
     }
 }
