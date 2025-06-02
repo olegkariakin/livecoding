@@ -24,3 +24,15 @@ class AVLTree:
         # RR case
         if balance < -1 and key > root.right.key:
             return self.left_rotate(root)
+
+        # LR case
+        if balance > 1 and key > root.left.key:
+            root.left = self.left_rotate(root.left)
+            return self.right_rotate(root)
+
+        # RL case
+        if balance < -1 and key < root.right.key:
+            root.right = self.right_rotate(root.right)
+            return self.left_rotate(root)
+
+        return root
