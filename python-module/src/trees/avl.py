@@ -1,5 +1,6 @@
 from trees.Node import Node
 
+
 class AVLTree:
     def insert(self, root, key):
         # Insert with basic BST
@@ -36,3 +37,19 @@ class AVLTree:
             return self.left_rotate(root)
 
         return root
+
+    def left_rotate(self, z):
+        y = z.right
+        T2 = y.left
+
+        # rotate
+        y.left = z
+        z.right = T2
+
+        # Update heights
+        z.height = 1 + max(self.get_height(z.left),
+                           self.get_height(z.right))
+        y.height = 1 + max(self.get_height(y.left),
+                           self.get_height(y.right))
+
+        return y
