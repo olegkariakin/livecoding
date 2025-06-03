@@ -53,3 +53,19 @@ class AVLTree:
                            self.get_height(y.right))
 
         return y
+
+    def right_rotate(self, z):
+        y = z.left
+        T3 = y.right
+
+        # rotate
+        y.right = z
+        z.left = T3
+
+        # Update heights
+        z.height = 1 + max(self.get_height(z.left),
+                           self.get_height(z.right))
+        y.height = 1 + max(self.get_height(y.left),
+                           self.get_height(y.right))
+
+        return y
