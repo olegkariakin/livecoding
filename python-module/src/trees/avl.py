@@ -2,6 +2,9 @@ from trees.Node import Node
 
 
 class AVLTree:
+    def __init__(self):
+        pass
+
     def insert(self, root, key):
         # Insert with basic BST
         if not root:
@@ -40,11 +43,11 @@ class AVLTree:
 
     def left_rotate(self, z):
         y = z.right
-        T2 = y.left
+        t2 = y.left
 
         # rotate
         y.left = z
-        z.right = T2
+        z.right = t2
 
         # Update heights
         z.height = 1 + max(self.get_height(z.left),
@@ -56,11 +59,11 @@ class AVLTree:
 
     def right_rotate(self, z):
         y = z.left
-        T3 = y.right
+        t3 = y.right
 
         # rotate
         y.right = z
-        z.left = T3
+        z.left = t3
 
         # Update heights
         z.height = 1 + max(self.get_height(z.left),
@@ -83,5 +86,15 @@ class AVLTree:
     def inorder(self, root):
         if root:
             self.inorder(root.left)
-            print(f"{root.key} (h={root.height}", end=' ')
+            print(f"{root.key} (h={root.height})", end=' ')
             self.inorder(root.right)
+
+
+avl = AVLTree()
+root = None
+for key in [10, 20, 30, 40, 50, 25]:
+    root = avl.insert(root, key)
+
+print("Inorder traversal of AVL tree:")
+avl.inorder(root)
+print()
