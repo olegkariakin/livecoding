@@ -69,3 +69,19 @@ class AVLTree:
                            self.get_height(y.right))
 
         return y
+
+    def get_height(self, node):
+        if not node:
+            return 0
+        return node.height
+
+    def get_balance(self, node):
+        if not node:
+            return 0
+        return self.get_height(node.left) - self.get_height(node.right)
+
+    def inorder(self, root):
+        if root:
+            self.inorder(root.left)
+            print(f"{root.key} (h={root.height}", end=' ')
+            self.inorder(root.right)
