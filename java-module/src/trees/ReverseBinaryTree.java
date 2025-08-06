@@ -15,7 +15,7 @@ public class ReverseBinaryTree {
         TreeNode nodeRight = new TreeNode(7, leaf3, leaf4);
 
         TreeNode root = new TreeNode(4, nodeLeft, nodeRight);
-        reverseSequentially(root);
+        reverseRecursively(root);
         System.out.println("Reversing Binary Tree");
     }
 
@@ -23,7 +23,7 @@ public class ReverseBinaryTree {
         if (root.leftChild == null || root.rightChild == null) {
             return;
         }
-
+        System.out.println(STR."Traversing: \{root.value}");
         TreeNode temp = root.leftChild;
         root.leftChild = root.rightChild;
         root.rightChild = temp;
