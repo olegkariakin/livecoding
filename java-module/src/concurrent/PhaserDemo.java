@@ -12,7 +12,8 @@ public class PhaserDemo {
         new MyThread3(phaser, "A");
         new MyThread3(phaser, "B");
         new MyThread3(phaser, "C");
-        new MyThread3(phaser, "D");
+        new MyThread3(phaser, "D" +
+                "");
 
         // All threads await phase one
         currentPhase = phaser.getPhase();
