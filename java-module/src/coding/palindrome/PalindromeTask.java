@@ -3,12 +3,12 @@ package coding.palindrome;
 public class PalindromeTask {
 
     static void main() {
-        int a = Integer.MAX_VALUE - 1;
-        int b = Integer.MAX_VALUE - 2;
+        String a = "ABC";
+        String b = "XYZ";
         System.out.println(STR."A: \{a} B: \{b}");
-        a = a ^ b;
-        b = a ^ b;
-        a = a ^ b;
+        a = a + b;
+        b = a.substring(0, a.length() - b.length());
+        a = a.substring(b.length());
         System.out.println(STR."A: \{a} B: \{b}");
     }
 
