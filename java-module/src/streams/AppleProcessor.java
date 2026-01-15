@@ -1,14 +1,25 @@
 package streams;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppleProcessor {
 
-    public String processFile(BufferedReaderProcessor p) throws IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader("data.txt"))) {
-            return p.process(br);
+    public static <T> List<T> filterWithPredicate(List<T> list, Predicate<T> p) {
+        List<T> results = new ArrayList<>();
+        for (T t : list) {
+            if (p.test(t)) {
+                results.add(t);
+            }
         }
+        return results;
+    }
+
+    static void main() {
+        List<String> listOfStrings = List.of("one", "two", "", "");
+        Predicate<String> nonEmptyStringPredicate = (String s) -> !s.isEmpty();
+        List<String> nonEmpty = filterWithPredicate(listOfStrings, nonEmptyStringPredicate);
+        System.out.println(STR."Size: \{nonEmpty.size()}");
+        nonEmpty.forEach(System.out::println);
     }
 }
