@@ -15,6 +15,12 @@ public class AppleProcessor {
         return results;
     }
 
+    public <T> void forEachConsumer(List<T> list, Consumer<T> c) {
+        for (T t: list) {
+            c.accept(t);
+        }
+    }
+
     static void main() {
         List<String> listOfStrings = List.of("one", "two", "", "");
         Predicate<String> nonEmptyStringPredicate = (String s) -> !s.isEmpty();
