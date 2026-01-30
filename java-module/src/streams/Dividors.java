@@ -1,33 +1,27 @@
 package streams;
 
 import java.util.IntSummaryStatistics;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Dividors {
     static void main() {
-        calc(15);
-        var result = calcStatistics(15);
-        System.out.println("Statistics. Count: " + result.getCount() + " Sum: " + result.getSum());
+        var result = calcCombined(150);
+
+        result.forEach((key, stats) ->
+                System.out.printf("%s: Кол-во=%d, Сумма=%d, Среднее=%.2f%n",
+                        key, stats.getCount(), stats.getSum(), stats.getAverage()));
     }
 
-    static void calc(int max) {
-        Map<String, List<Integer>> groups = IntStream.rangeClosed(2, max)
+    static Map<String, IntSummaryStatistics> calcCombined(int max) {
+        return IntStream
+                .rangeClosed(2, max)
+                .filter(i -> i % 2 == 0 || i % 7 == 0)
                 .boxed()
-                .filter(i -> i % 2 == 0 || i % 7 == 0)
-                .collect(Collectors.groupingBy(i -> {
-                    if (i % 2 == 0) return "Делится на 2";
-                    return "Делится на 7";
-                }));
-        groups.forEach((key, list) -> System.out.println(STR."\{key}: \{list}"));
+                .collect(Collectors.groupingBy(
+                        i -> (i % 2 == 0) ? "Делится на 2" : "Делится на 7",
+                        Collectors.summarizingInt(Integer::intValue)
+                ));
     }
-
-    static IntSummaryStatistics calcStatistics(int max) {
-        return IntStream.rangeClosed(2, max)
-                .filter(i -> i % 2 == 0 || i % 7 == 0)
-                .summaryStatistics();
-    }
-
 }
