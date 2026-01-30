@@ -9,12 +9,6 @@ public class ReverseStringRecursively {
     }
 
     private static String reverse(String input) {
-        if (input.length() <= 1)
-            return input;
-        char firstChar = input.charAt(0);
-        String remaining = input.substring(1);
-
-        // recursive descent
-        return reverse(remaining) + firstChar;
+        return input.length() <= 1 ? input : reverse(input.substring(1)) + input.charAt(0);
     }
 }
