@@ -33,22 +33,24 @@ public class CountSubstring {
     }
 
     static int countSubstringsIterative(String input, String valueToFind) {
-        char[] inputs = input.toCharArray();
-        char[] toFind = valueToFind.toCharArray();
+        if (valueToFind.isEmpty() || input.length() < valueToFind.length()) return 0;
         int count = 0;
+        int n = input.length();
+        int m = valueToFind.length();
 
-        for (int i = 0; i < inputs.length; i++) {
-            if (inputs[i] == toFind[0]) {
-                int left = i;
-                for (char c : toFind) {
-                    if (inputs[left] != c) {
+        for (int i = 0; i <= n - m; i++) {
+            if (input.charAt(i) == valueToFind.charAt(0)) {
+                boolean match = true;
+                for (int j = 1; j < m; j++) {
+                    if (input.charAt(i + j) != valueToFind.charAt(j)) {
+                        match = false;
                         break;
-                    } else {
-                        left++;
                     }
                 }
-                count++;
-                i += toFind.length - 1;
+                if (match) {
+                    count++;
+                    i += m - 1;
+                }
             }
         }
 
