@@ -1,6 +1,6 @@
 package coding;
 
-public class StringToIntegerAtoi {
+public class StringToIntegerAtoi_8 {
 
     static void main() {
         System.out.println("Result: " + myAtoi("-1337dfsdf234234"));
