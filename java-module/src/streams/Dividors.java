@@ -1,6 +1,6 @@
 package streams;
 
-import java.util.ArrayList;
+import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -9,8 +9,8 @@ import java.util.stream.IntStream;
 public class Dividors {
     static void main() {
         calc(15);
-        List<Integer> result = calcStatistics(15);
-        System.out.println("Statistics. Count: " + result.get(0) + " Sum: " + result.get(1));
+        var result = calcStatistics(15);
+        System.out.println("Statistics. Count: " + result.getCount() + " Sum: " + result.getSum());
     }
 
     static void calc(int max) {
@@ -24,21 +24,10 @@ public class Dividors {
         groups.forEach((key, list) -> System.out.println(STR."\{key}: \{list}"));
     }
 
-    static List<Integer> calcStatistics(int max) {
-        List<Integer> results = new ArrayList<>();
-
-        int count = (int) IntStream.rangeClosed(2, max)
+    static IntSummaryStatistics calcStatistics(int max) {
+        return IntStream.rangeClosed(2, max)
                 .filter(i -> i % 2 == 0 || i % 7 == 0)
-                .count();
-
-        int sum = IntStream.rangeClosed(2, max)
-                .filter(i -> i % 2 == 0 || i % 7 == 0)
-                .sum();
-
-        results.add(count);
-        results.add(sum);
-
-        return results;
+                .summaryStatistics();
     }
 
 }
