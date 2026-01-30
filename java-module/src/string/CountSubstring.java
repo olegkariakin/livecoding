@@ -5,7 +5,7 @@ public class CountSubstring {
     static void main() {
         String initial = "helhelohe";
         String valueToFind = "he";
-        System.out.println("Recursive search of substring: " + countSubstringsIterative(initial, valueToFind));
+        System.out.println("Recursive search of substring: " + countSubstringBuiltIn(initial, valueToFind));
     }
 
     static int countSubstringsRecursive(String input, String valueToFind) {
@@ -30,6 +30,18 @@ public class CountSubstring {
     static int countSubstringsRecursiveShort(String input, String valueToFind) {
         return input.length() < valueToFind.length() ? 0 : (input.startsWith(valueToFind) ? 1 : 0) +
                 countSubstringsRecursiveShort(input.substring(1), valueToFind);
+    }
+
+    static int countSubstringBuiltIn(String input, String valueToFind) {
+        int count = 0;
+        int index = 0;
+
+        while ((index = input.indexOf(valueToFind, index)) != -1) {
+            count++;
+            index += valueToFind.length();
+        }
+
+        return count;
     }
 
     static int countSubstringsIterative(String input, String valueToFind) {
