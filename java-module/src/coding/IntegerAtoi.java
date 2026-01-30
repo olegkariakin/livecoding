@@ -1,8 +1,5 @@
 package coding;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 public class IntegerAtoi {
 
     static void main() {
@@ -10,55 +7,29 @@ public class IntegerAtoi {
     }
 
     static int myAtoi(String s) {
-        Deque<Integer> stack = new ArrayDeque<>();
-        char[] chars = s.toCharArray();
-        boolean isNumber = false;
-        boolean isPositive = true;
+        int n = s.length();
+        int i = 0;
+        int sign = 1;
+        long res = 0;
 
-        for (char c : chars) {
-            //not started, ignore any leading whitespaces till a digit is found
-            if (!isNumber) {
-                if (c == ' ') {
-                    continue;
-                }
-                if (c == '-') {
-                    isPositive = false;
-                    isNumber = true;
-                    continue;
-                }
-                if (c == '+') {
-                    isPositive = true;
-                    isNumber = true;
-                    continue;
-                }
-            }
-            // scanning the number
-            if (c >= '0' && c <= '9') {
-                isNumber = true;
-                stack.add((c - '0'));
-                continue;
-            }
-            //stop scanning when its number and not digit is found
-            if (isNumber && (c < '0' || c > '9')) {
-                break;
-            }
-            if (!isNumber &&(c != '+' || c != '-') && (c < '0' || c > '9')) {
-                break;
-            }
+        // skip spaces
+        while (i < n && s.charAt(i) == ' ') i++;
+
+        // identify + or - sign
+        if (i < n && (s.charAt(i) == '+' || s.charAt(i) == '-')) {
+            sign = (s.charAt(i) == '-') ? -1 : 1;
+            i++;
         }
 
-        if (stack.isEmpty()) {
-            return 0;
+        while (i < n && Character.isDigit(s.charAt(i))) {
+            res = res * 10 + (s.charAt(i) - '0');
+            i++;
+
+            // check overflow using long
+            if (sign == 1 && res > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+            if (sign == -1 && -res < Integer.MIN_VALUE) return Integer.MIN_VALUE;
         }
 
-        long result = 0;
-        while (!stack.isEmpty()) {
-            int digit = stack.pollFirst();
-            result = result * 10 + digit;
-
-            if (isPositive && result > Integer.MAX_VALUE) return Integer.MAX_VALUE;
-            if (!isPositive && -result < Integer.MIN_VALUE) return Integer.MIN_VALUE;
-        }
-        return isPositive ? (int) result: (int) -result;
+        return (int) (res * sign);
     }
 }
