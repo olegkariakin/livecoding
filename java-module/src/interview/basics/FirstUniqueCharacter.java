@@ -1,13 +1,16 @@
 package interview.basics;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class FirstUniqueCharacter {
 
     static void main() {
         String s = "lleettccoode";
-        char result = findFirstUniqueArray(s);
+        char result = findFirstUniqueStream(s);
         System.out.println(result != '\0' ? result : "No unique chars");
     }
 
@@ -54,5 +57,21 @@ public class FirstUniqueCharacter {
             }
         }
         return '\0';
+    }
+
+    static char findFirstUniqueStream(String input) {
+        return input.chars()
+                .mapToObj(c -> (char) c)
+                .collect(Collectors.groupingBy(
+                        Function.identity(),
+                        LinkedHashMap::new,
+                        Collectors.counting()
+                ))
+                .entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() == 1)
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElse('\0');
     }
 }
