@@ -1,10 +1,13 @@
 package interview.basics;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class ReverseStringWords {
 
     static void main() {
         String initial = " Some words here";
-        System.out.println(STR."Reverse words: \{initial} - \{reversedWords(initial)}");
+        System.out.println(STR."Reverse words: \{initial} - \{reverseWordsJava21(initial)}");
     }
 
     static String reversedWords(String initial) {
@@ -15,5 +18,10 @@ public class ReverseStringWords {
             if (i != 0) reversed.append(" ");
         }
         return reversed.toString();
+    }
+
+    static String reverseWordsJava21(String initial) {
+        return String.join(" ", Arrays.asList(initial.split(" "))
+                .reversed());
     }
 }
