@@ -39,6 +39,7 @@ public class StreamNumberTraining {
         //4. ZigZag stream
         String zigZagResult = IntStream.rangeClosed(1, 50)
                 .filter(n -> n % 3 == 0 || n % 5 == 0)
+                .peek(n -> System.out.println("After filter: " + n))
                 .boxed()
                 .sorted((a, b) -> {
                     boolean aIsEven = a % 2 == 0;
