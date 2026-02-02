@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class StreamTraining {
+public class StreamObjectTraining {
 
     static void main() {
         Developer d1 = new Developer("Ivan", 22, List.of("Java", "SQL"), 2500);
