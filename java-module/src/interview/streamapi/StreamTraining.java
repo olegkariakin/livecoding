@@ -4,10 +4,7 @@ import interview.streamapi.domain.Department;
 import interview.streamapi.domain.Developer;
 import interview.streamapi.domain.Project;
 
-import java.util.AbstractMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -92,7 +89,18 @@ public class StreamTraining {
                 .mapToDouble(entry -> entry.getKey().salary())
                 .average()
                 .orElse(0.0);
-        System.out.println("5.2 Average Salary: " + averageSalary);
+        System.out.println(STR."5.2 Average Salary: \{averageSalary}");
+
+        // Задача 9: Статистика по возрасту
+        // Найди разницу между самым старшим и самым молодым разработчиком в отделе.
+        //        Зачем это нужно: познакомиться с IntSummaryStatistics или методами min/max для примитивных стримов.
+        IntSummaryStatistics stats = department.projects().stream()
+                .flatMap(p -> p.team().stream())
+                .distinct()
+                .mapToInt(Developer::age)
+                .summaryStatistics();
+        System.out.println(STR."9. Вся статистика: \{stats}");
+        System.out.println(STR."9. Разница в возрасте между самым возрастным и молодым: \{stats.getMax() - stats.getMin()}");
 
         // Задача 10: Плоский список всех имен (уникальный)
         // Собери все имена разработчиков в одну строку (String), отсортируй их по алфавиту и приведи к верхнему регистру.
@@ -104,5 +112,33 @@ public class StreamTraining {
                 .sorted()
                 .collect(Collectors.joining(" "));
         System.out.println("10 all distinct names sorted(asc) and capitalized: " + allNames);
+
+        // 11. Сортировки
+        // Из задачи 10 Собери уникальные имена в строку, но отсортируй их по длине имени (от коротких к длинным),
+        // а если длина одинаковая — тогда по алфавиту в обратном порядке.
+        String namesCompared = department.projects().stream()
+                .flatMap(p -> p.team().stream())
+                .map(Developer::name)
+                .sorted(Comparator
+                        .comparingInt(String::length) // сначала сортировка по длине, короткие - вперед
+                        .thenComparing(Comparator.reverseOrder()) // если есть одинаковые - в обратном порядке
+                )
+                .collect(Collectors.joining(" "));
+        System.out.println("11. Names compared: " + namesCompared);
+
+        //12. Кастомная сортировка
+        // Сортируем чтобы содержащие "а" шли первыми
+        String namesAfirst = department.projects().stream()
+                .flatMap(p -> p.team().stream())
+                .map(Developer::name)
+                .sorted((n1, n2) -> {
+                    boolean s1HasA = n1.toLowerCase().contains("a");
+                    boolean s2HasA = n2.toLowerCase().contains("a");
+                    if (s1HasA && !s2HasA) return -1;
+                    if (!s1HasA && s2HasA) return 1;
+                    return n1.compareTo(n2);
+                })
+                .collect(Collectors.joining(" "));
+        System.out.println("12. Names A first: " + namesAfirst);
     }
 }
