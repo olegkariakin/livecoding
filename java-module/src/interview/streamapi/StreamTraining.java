@@ -91,6 +91,37 @@ public class StreamTraining {
                 .orElse(0.0);
         System.out.println(STR."5.2 Average Salary: \{averageSalary}");
 
+        //Задача 6: Текстовый отчет
+        //Составь строку, в которой перечислены названия всех проектов через запятую и пробел, но только тех, в которых участвует больше 2-х разработчиков.
+        //        Зачем это нужно: потренировать фильтрацию по размеру вложенного списка и Collectors.joining.
+        String projectsWithMoreTwoDevs = department.projects().stream()
+                .filter(p -> p.team().size() > 2)
+                .map(Project::title)
+                .collect(Collectors.joining(", "));
+        System.out.println("6. Project titles with more two devs: " + projectsWithMoreTwoDevs);
+
+        //Задача 7: Карта «Имя — Зарплата»
+        // Создай Map<String, Double>, где ключ — имя разработчика, а значение — его зарплата. Если разработчик встречается в нескольких проектах (дублируется в стриме), оставь того, у кого зарплата выше.
+        //        Зачем это нужно: разобраться с аргументами Collectors.toMap (в частности, с mergeFunction).
+        Map<String, Double> developers = department.projects().stream()
+                .flatMap(p -> p.team().stream())
+                .collect(Collectors.toMap(
+                        Developer::name,
+                        Developer::salary,
+                        (existing, replacement) -> Math.max(existing, replacement)
+                ));
+        System.out.println("7. Developers groupped by salary: " + developers);
+
+        //Задача 8: Проверка квалификации
+        //Проверь, правда ли, что в каждом активном проекте есть хотя бы один разработчик, знающий "Java". На выходе должен быть boolean.
+        //        Зачем это нужно: потренировать предикаты внутри allMatch и anyMatch.
+        boolean allActiveProjectsHaveJava = department.projects().stream()
+                .filter(Project::isActive)
+                .allMatch(p -> p.team().stream()
+                        .anyMatch(d -> d.skills().contains("Java"))
+                );
+        System.out.println("8. Do all active projects contains a java dev: " + allActiveProjectsHaveJava);
+
         // Задача 9: Статистика по возрасту
         // Найди разницу между самым старшим и самым молодым разработчиком в отделе.
         //        Зачем это нужно: познакомиться с IntSummaryStatistics или методами min/max для примитивных стримов.
