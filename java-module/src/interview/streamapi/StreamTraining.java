@@ -5,11 +5,10 @@ import interview.streamapi.domain.Developer;
 import interview.streamapi.domain.Project;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toSet;
 
 public class StreamTraining {
 
@@ -58,8 +57,29 @@ public class StreamTraining {
         //Сгруппировать всех разработчиков отдела по их навыкам. На выходе должна быть Map<String, List<Developer>>, где ключ — это название навыка (например, "Docker"), а значение — список ребят, которые им владеют.
         //(Подсказка: тут тоже понадобится flatMap, но внутри collect).
 
+
         // 5. Агрегация и статистика (Senior-ish):
         //Посчитать среднюю зарплату разработчиков во всем отделе, но только тех, кто задействован более чем в одном проекте.
+        // 5.1 Using quantity map
+        Map<Developer, Long> quantityMap = department.projects().stream()
+                .flatMap(p -> p.team().stream())
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        double averageSalary = quantityMap.entrySet().stream()
+                .filter(e -> e.getValue() > 1)
+                .mapToDouble(e -> e.getKey().salary())
+                .average()
+                .orElse(0.0);
+        System.out.println("5.1 Average Salary: " + averageSalary);
 
+        // 5.2 Using collect
+        averageSalary = department.projects().stream()
+                .flatMap(p -> p.team().stream())
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .entrySet().stream()
+                .filter(entry -> entry.getValue() > 1)
+                .mapToDouble(entry -> entry.getKey().salary())
+                .average()
+                .orElse(0.0);
+        System.out.println("5.2 Average Salary: " + averageSalary);
     }
 }
