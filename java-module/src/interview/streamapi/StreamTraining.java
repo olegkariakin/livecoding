@@ -93,5 +93,16 @@ public class StreamTraining {
                 .average()
                 .orElse(0.0);
         System.out.println("5.2 Average Salary: " + averageSalary);
+
+        // Задача 10: Плоский список всех имен (уникальный)
+        // Собери все имена разработчиков в одну строку (String), отсортируй их по алфавиту и приведи к верхнему регистру.
+        String allNames = department.projects().stream()
+                .flatMap(p -> p.team().stream())
+                .map(Developer::name)
+                .distinct()
+                .map(String::toUpperCase)
+                .sorted()
+                .collect(Collectors.joining(" "));
+        System.out.println("10 all distinct names sorted(asc) and capitalized: " + allNames);
     }
 }
