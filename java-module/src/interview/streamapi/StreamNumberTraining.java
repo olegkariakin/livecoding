@@ -1,6 +1,8 @@
 package interview.streamapi;
 
+import java.util.Arrays;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class StreamNumberTraining {
 
@@ -15,11 +17,23 @@ public class StreamNumberTraining {
 
         //2. Поиск простых чисел
         System.out.println("2. First 20 prime numbers");
-        IntStream.iterate(2, n -> n+1)
+        IntStream.iterate(2, n -> n + 1)
                 .filter(number -> number > 1 && IntStream.rangeClosed(2, (int) Math.sqrt(number))
                         .noneMatch(i -> number % i == 0))
                 .limit(100)
                 .forEach(System.out::println);
+
+        //3. Пифагоровы тройки
+        System.out.println("3. Pythagorean triangles");
+        Stream<int[]> pythagoreanTriples = IntStream.rangeClosed(1, 100)
+                .boxed()
+                .flatMap(a -> IntStream.rangeClosed(a, 100)
+                        .filter(b -> Math.sqrt(a * a + b * b) % 1 == 0)
+                        .mapToObj(b -> new int[]{a, b, (int) Math.sqrt(a * a + b * b)})
+                );
+        pythagoreanTriples
+                .map(Arrays::toString)
+                .forEach(System.out::print);
     }
 
 }
