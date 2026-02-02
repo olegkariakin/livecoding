@@ -47,6 +47,12 @@ public class StreamTraining {
 
         // 3. Поиск и опционалы
         // Найти любого разработчика старше 25 лет, у которого в навыках есть "Java". Если такой найден — вернуть его имя, если нет — бросить исключение RuntimeException.
+        Developer anyJavaDev = department.projects().stream()
+                .flatMap(p -> p.team().stream())
+                .filter(d -> d.age() > 25 && d.skills().contains("Java"))
+                .findAny()
+                .orElseThrow(RuntimeException::new);
+        System.out.println("Any java dev" + anyJavaDev);
 
         // 4. Сложная группировка:
         //Сгруппировать всех разработчиков отдела по их навыкам. На выходе должна быть Map<String, List<Developer>>, где ключ — это название навыка (например, "Docker"), а значение — список ребят, которые им владеют.
