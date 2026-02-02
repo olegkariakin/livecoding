@@ -4,6 +4,7 @@ import interview.streamapi.domain.Department;
 import interview.streamapi.domain.Developer;
 import interview.streamapi.domain.Project;
 
+import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -57,6 +58,17 @@ public class StreamTraining {
         //Сгруппировать всех разработчиков отдела по их навыкам. На выходе должна быть Map<String, List<Developer>>, где ключ — это название навыка (например, "Docker"), а значение — список ребят, которые им владеют.
         //(Подсказка: тут тоже понадобится flatMap, но внутри collect).
 
+        //4.1 using flatting pairs
+        var entires = department.projects().stream()
+                .flatMap(p -> p.team().stream())
+                .distinct() // Уникальные девелоперы
+                .flatMap(dev -> dev.skills().stream()
+                        .map(skill -> new AbstractMap.SimpleEntry<>(skill, dev)))
+                .collect(Collectors.groupingBy(
+                        Map.Entry::getKey,
+                        Collectors.mapping(Map.Entry::getValue, Collectors.toList())
+                ));
+        System.out.println("4.1 Entries: " + entires);
 
         // 5. Агрегация и статистика (Senior-ish):
         //Посчитать среднюю зарплату разработчиков во всем отделе, но только тех, кто задействован более чем в одном проекте.
